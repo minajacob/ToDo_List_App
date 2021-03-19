@@ -2,3 +2,15 @@
     height: calc(100% - 64px);
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
+
+.sidenav {
+    width: 215px;
+}
+
+.navbar-toggler {
+    border: 1px solid #534f4f;
+    &:hover, &:focus
+    {
+        box-shadow: 0 0 0 0.03em;
+    }
+}

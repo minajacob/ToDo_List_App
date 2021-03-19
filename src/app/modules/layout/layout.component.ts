@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { interval, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout',
@@ -6,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['layout.style.scss']
 })
 export class LayoutComponent implements OnInit {
-  title = 'ToDoListApp';
 
-  constructor() { }
+  date: Observable<number>;
+
+  constructor() {
+    this.date = interval(1000).pipe(map(t => Date.now()));
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

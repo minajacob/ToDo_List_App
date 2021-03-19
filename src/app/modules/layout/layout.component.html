@@ -1,13 +1,35 @@
 <mat-toolbar>
-    <button mat-icon-button (click)="sidenav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+    <button (click)="sidenav.toggle()" class="text-white navbar-toggler me-2" aria-label="icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
-    Header
+    Today 
+    <span class="ps-2" *ngIf="date | async; let date; else loadingDate">
+        - {{ date | date: 'medium' }}
+    </span>
+
+    <ng-template #loadingDate>
+        <span class="ps-2">
+            - <small> loading date </small>
+            <div class="mx-2 spinner-border spinner-border-sm" role="status"></div>
+        </span>
+    </ng-template>
 </mat-toolbar>
 
-<mat-sidenav-container class="main-container">
-    <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
 
+
+<mat-sidenav-container class="main-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
+        <mat-list role="list">
+            <mat-list-item role="listitem">
+                <mat-icon mat-list-icon>add_circle_outline</mat-icon> Add Task
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon mat-list-icon>list</mat-icon> Task List
+            </mat-list-item>
+            <!-- <mat-list-item role="listitem">
+                Item 3
+            </mat-list-item> -->
+          </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
