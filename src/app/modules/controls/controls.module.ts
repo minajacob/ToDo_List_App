@@ -4,14 +4,27 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const components = [
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
   MatListModule,
-  MatRippleModule
+  MatRippleModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatCheckboxModule
 ]
 
 @NgModule({

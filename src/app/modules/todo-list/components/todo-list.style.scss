@@ -1,0 +1,21 @@
+.task {
+    ::ng-deep {
+        .mat-list-item-content {
+            width: 100%;
+        }
+    }
+    background-color: #424242;
+    margin-bottom: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .action {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+}
