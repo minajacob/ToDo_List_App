@@ -1,9 +1,39 @@
-<p>
-    layout works!
-</p>
+<mat-toolbar>
+    <button mat-icon-button (click)="sidenav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    Header
+</mat-toolbar>
+
+<mat-sidenav-container class="main-container">
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <mat-drawer-container class="main-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <p>Auto-resizing sidenav</p>
+        <button mat-raised-button>
+            Toggle extra text
+        </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+            Toggle sidenav
+        </button>
+    </div>
+
+</mat-drawer-container> -->
 
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center" class="content">
+<!-- <div style="text-align:center" class="content">
     <h1>
         Welcome to {{title}}!
     </h1>
@@ -22,5 +52,4 @@
     <li>
         <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
     </li>
-</ul>
-<router-outlet></router-outlet>
+</ul> -->
