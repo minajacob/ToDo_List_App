@@ -14,3 +14,19 @@
         box-shadow: 0 0 0 0.03em;
     }
 }
+
+.menu-item {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background: #575555;
+    }
+
+    &.active {
+        background: #212121;
+    }
+}

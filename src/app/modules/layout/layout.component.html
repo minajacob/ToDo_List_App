@@ -2,16 +2,18 @@
     <button (click)="sidenav.toggle()" class="text-white navbar-toggler me-2" aria-label="icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
-    Today 
-    <span class="ps-2" *ngIf="date | async; let date; else loadingDate">
-        - {{ date | date: 'medium' }}
-    </span>
+    Today
+    <small class="ps-1" *ngIf="date | async; let date; else loadingDate">
+        <span class="px-2">|</span>
+        {{ date | date: 'medium' }}
+    </small>
 
     <ng-template #loadingDate>
-        <span class="ps-2">
-            - <small> loading date </small>
+        <small class="ps-1">
+            <span class="px-2">|</span>
+            <span> loading date </span>
             <div class="mx-2 spinner-border spinner-border-sm" role="status"></div>
-        </span>
+        </small>
     </ng-template>
 </mat-toolbar>
 
@@ -20,15 +22,12 @@
 <mat-sidenav-container class="main-container">
     <mat-sidenav #sidenav mode="side" opened class="sidenav" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
         <mat-list role="list">
-            <mat-list-item role="listitem">
+            <mat-list-item class="menu-item" routerLinkActive="active" routerLink="new" matRipple role="listitem">
                 <mat-icon mat-list-icon>add_circle_outline</mat-icon> Add Task
             </mat-list-item>
-            <mat-list-item role="listitem">
+            <mat-list-item class="menu-item" routerLinkActive="active"  routerLink="list" matRipple role="listitem">
                 <mat-icon mat-list-icon>list</mat-icon> Task List
             </mat-list-item>
-            <!-- <mat-list-item role="listitem">
-                Item 3
-            </mat-list-item> -->
           </mat-list>
     </mat-sidenav>
 
@@ -36,42 +35,3 @@
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-<!-- <mat-drawer-container class="main-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-        <p>Auto-resizing sidenav</p>
-        <button mat-raised-button>
-            Toggle extra text
-        </button>
-    </mat-drawer>
-
-    <div class="example-sidenav-content">
-        <button type="button" mat-button (click)="drawer.toggle()">
-            Toggle sidenav
-        </button>
-    </div>
-
-</mat-drawer-container> -->
-
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <div style="text-align:center" class="content">
-    <h1>
-        Welcome to {{title}}!
-    </h1>
-    <span style="display: block">{{ title }} app is running!</span>
-    <img width="300" alt="Angular Logo"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-    <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-    </li>
-    <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-    </li>
-    <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-    </li>
-</ul> -->
