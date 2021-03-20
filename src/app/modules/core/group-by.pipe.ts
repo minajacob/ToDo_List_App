@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GroupByPipe implements PipeTransform {
 
-  transform(value: any[], [key, groupName, list = "list"]: string[]): any[] {
+  transform(value: any[], [key, groupName = key, list = "list"]: string[]): any[] {
     var listGrouped = value.reduce(function (rv, x) {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;

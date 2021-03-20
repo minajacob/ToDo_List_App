@@ -1,0 +1,66 @@
+<div class="row mt-3">
+    <h2>New Task 🆕</h2>
+    <form class="col-8" (ngSubmit)="addNewTask()" #form="ngForm" [formGroup]="newTaskForm" >
+        <div class="border border-1 p-4">
+            <div class="col-6 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Title</mat-label>
+                    <input matInput value="Sushi" formControlName="name" >
+                    <mat-error *ngIf="titleCtrl?.hasError('required')">
+                        This field is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+    
+    
+            <div class="mb-4">
+                <div class="mb-2">
+                    <label>Priority</label>
+                </div>
+                <mat-radio-group aria-label="Select an option" formControlName="priority">
+                    <mat-radio-button class="col-2" value="1">Low</mat-radio-button>
+                    <mat-radio-button class="col-2" value="2">Normal</mat-radio-button>
+                    <mat-radio-button class="col-2" value="3">High</mat-radio-button>
+                </mat-radio-group>
+                <div class="error-msg mt-2">
+                    <span *ngIf="form?.submitted && priorityCtrl?.hasError('required')">
+                        This field is required.
+                    </span>
+                </div>
+            </div>
+    
+    
+            <div class="col-3 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Delivery Date</mat-label>
+                    <input matInput [matDatepicker]="picker"  formControlName="dueDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker ></mat-datepicker>
+                    <mat-error *ngIf="dueDateCtrl?.hasError('required')">
+                        This field is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div class="col-3 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Group</mat-label>
+                    <mat-select formControlName="groupId" >
+                        <mat-option *ngFor="let food of [1,2,3,4,5,6]" [value]="food">
+                            {{food}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="groupIdCtrl?.hasError('required')">
+                        This field is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div class="d-md-flex justify-content-md-end">
+                <div class="d-grid col-2">
+                    <button type="submit" class="btn btn-primary" >Add</button>
+                </div>
+            </div>  
+        </div>
+    </form>
+</div>

@@ -1,4 +1,15 @@
 
+export enum Priority {
+    Low,
+    Normal,
+    High
+}
+
+export interface IGroup {
+    id: number;
+    name: string;
+}
+
 export interface ITask {
     id: number;
     name: string;
@@ -6,10 +17,12 @@ export interface ITask {
     done: boolean;
     deleted: boolean;
     dueDate: any;
-    groupId: number
+    groupId: number;
+    priority?: Priority
 }
 
 export interface ITodoList {
     tasks : ITask[];
+    groups: IGroup[];
     selectedTasks: number[];
 }

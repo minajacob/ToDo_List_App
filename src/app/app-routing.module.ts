@@ -4,19 +4,20 @@ import { LayoutComponent } from './modules/layout/layout.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: "app",
     component: LayoutComponent,
     children: [
       {
         path: "list",
         loadChildren: () => import('../app/modules/todo-list/todo-list.module').then(m => m.TodoListModule)
       },
-      // {
-      //   path: "new",
-      //   loadChildren: () => import('')
-      // }
+      {
+        path: "new",
+        loadChildren: () => import('../app/modules/todo-management/todo-management.module').then(m => m.TodoManagementModule)
+      }
     ]
-  }
+  },
+  { path: "", redirectTo: "app/list/all", pathMatch: "full" }
 ];
 
 @NgModule({

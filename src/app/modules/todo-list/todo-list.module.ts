@@ -4,10 +4,14 @@ import { TodoListComponent } from './components/todo-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlsModule } from '../controls/controls.module';
 import { CoreModule } from '../core/core.module';
+import { TodoManagementModule } from '../todo-management/todo-management.module';
+import { TodoManagementComponent } from '../todo-management/todo-management.component';
 
 
 const routes: Routes = [
-  { path: '', component: TodoListComponent }
+  { path: 'all', component: TodoListComponent },
+  { path: 'view/:taskId', component: TodoManagementComponent },
+  { path: 'edit/:taskId', component: TodoManagementComponent }
 ]
 
 
@@ -17,7 +21,9 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ControlsModule,
-    CoreModule
-  ]
+    CoreModule,
+    TodoManagementModule
+  ],
+  exports: [RouterModule]
 })
 export class TodoListModule { }
