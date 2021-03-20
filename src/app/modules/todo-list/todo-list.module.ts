@@ -6,6 +6,7 @@ import { ControlsModule } from '../controls/controls.module';
 import { CoreModule } from '../core/core.module';
 import { TodoManagementModule } from '../todo-management/todo-management.module';
 import { TodoManagementComponent } from '../todo-management/todo-management.component';
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ControlsModule,
     CoreModule,
+    FormsModule,
     TodoManagementModule
   ],
   exports: [RouterModule]

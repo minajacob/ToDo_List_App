@@ -44,8 +44,8 @@
                 <mat-form-field class="w-100">
                     <mat-label>Group</mat-label>
                     <mat-select formControlName="groupId" >
-                        <mat-option *ngFor="let food of [1,2,3,4,5,6]" [value]="food">
-                            {{food}}
+                        <mat-option *ngFor="let group of model.groups" [value]="group.id">
+                            {{group.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="groupIdCtrl?.hasError('required')">

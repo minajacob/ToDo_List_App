@@ -10,18 +10,18 @@ import { ITask, Priority } from "./todo.model";
 export class TasksService {
 
     tasks: ITask[] = [
-        { id: 1, name: "Task 1", created: Date.now(), deleted: false, dueDate: new Date("03/20/2021"), done: false, groupId: 1, priority: Priority.Low },
-        { id: 2, name: "Task 2", created: Date.now(), deleted: false, dueDate: new Date("03/10/2021"), done: false, groupId: 2, priority: Priority.High },
+        { id: 1, name: "Add new ToDo task page", created: Date.now(), deleted: false, dueDate: new Date("03/20/2021"), done: false, groupId: 1, priority: Priority.Low },
+        { id: 2, name: "ToDo task details page", created: Date.now(), deleted: false, dueDate: new Date("03/10/2021"), done: false, groupId: 2, priority: Priority.High },
         { id: 3, name: "Task 3", created: Date.now(), deleted: false, dueDate: new Date("03/15/2021"), done: false, groupId: 3, priority: Priority.Normal },
-        { id: 4, name: "Task 4", created: Date.now(), deleted: false, dueDate: new Date("03/22/2021"), done: false, groupId: 1, priority: Priority.Low },
-        { id: 5, name: "Task 5", created: Date.now(), deleted: false, dueDate: new Date("03/03/2021"), done: false, groupId: 2, priority: Priority.Normal },
+        { id: 4, name: "Create ToDo list App using Angular 6 or later and SASS", created: Date.now(), deleted: false, dueDate: new Date("03/22/2021"), done: false, groupId: 5, priority: Priority.Low },
+        { id: 5, name: "Task 5", created: Date.now(), deleted: false, dueDate: new Date("03/03/2021"), done: false, groupId: 4, priority: Priority.Normal },
         { id: 6, name: "Task 6", created: Date.now(), deleted: false, dueDate: new Date("02/20/2021"), done: false, groupId: 6, priority: Priority.High }
     ];
 
     constructor(private httpClient: HttpClient) { }
 
     get(): Observable<ITask[]> {
-        return of(this.tasks)
+        return of(this.tasks.filter(t => !t.deleted))
     }
 
     getById(id: number): Observable<ITask | undefined> {

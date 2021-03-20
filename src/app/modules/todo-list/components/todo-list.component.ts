@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { GroupsService } from '../../core/groups.service';
 import { TasksService } from '../../core/tasks.service';
-import { ITask, ITodoList } from '../../core/todo.model';
+import { IGroup, ITask, ITodoList } from '../../core/todo.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -19,7 +22,12 @@ export class TodoListComponent implements OnInit {
     this.model = {
       tasks: [],
       groups: [],
-      selectedTasks: []
+      selectedTasks: [],
+      filter: {
+        date: null,
+        groupName: '',
+        title: ''
+      }
     }
 
     this.tasksSvc.get().subscribe(tasks => {
@@ -29,6 +37,14 @@ export class TodoListComponent implements OnInit {
     this.groupsSvc.getAll().subscribe(groups => {
       this.model.groups = groups;
     });
+  }
+
+  filteredGroups(value: string){
+    return this.model.groups.filter(g => g.name.toLowerCase().indexOf(value.toLowerCase()) >  -1);
+  }
+
+  trackByGroups(item: any) {
+    return item.id;
   }
 
   taskClick(e: Event, task: ITask) {
@@ -54,11 +70,46 @@ export class TodoListComponent implements OnInit {
   deleteTask(e: Event, task: ITask) {
     // Stop Event bubbling  
     e.stopPropagation();
+    this.tasksSvc.update({ ...task, deleted: true }).subscribe(res => {
+      this.model.tasks = this.model.tasks.filter(t => t.id !== task.id);
+      this.model.selectedTasks = [];
+    })
   }
 
   doneTask(e: Event, task: ITask) {
     // Stop Event bubbling  
     e.stopPropagation();
+    this.tasksSvc.update({ ...task, done: true }).subscribe(res => {
+      task.done = true;
+      // this.model.selectedTasks = [];
+      // this.model.tasks = this.model.tasks.filter(t => t.id !== task.id);
+    })
+  }
+
+  get filteredTasks() {
+    // Get groups Ids for filter groups by id
+    let groupsIds = this.filteredGroups(this.model.filter.groupName).map(g => g.id);
+
+    return this.model.tasks.filter(t => {
+      if (groupsIds.length > 0 && !groupsIds.includes(t.groupId)) {
+        return false
+      }
+
+      if (this.model.filter.title && t.name.toLowerCase().indexOf(this.model.filter.title.toLowerCase()) === -1) {
+        return false
+      }
+
+      if (this.model.filter.date && (+new Date(t.dueDate)) != (+new Date(this.model.filter.date))) {
+        return false
+      }
+      
+      return true
+    })
+
+  }
+
+  trackByTasksFn(group: any){
+    return group;
   }
 
 }

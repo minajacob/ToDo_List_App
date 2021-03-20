@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GroupsService } from '../core/groups.service';
 import { TasksService } from '../core/tasks.service';
 import { Priority } from '../core/todo.model';
 import { ITodoManageModel } from './todo-management.model';
@@ -15,7 +16,8 @@ export class TodoManagementComponent implements OnInit {
 
   model: ITodoManageModel;
 
-  constructor(private fb: FormBuilder, private tasksSvc: TasksService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private fb: FormBuilder, private tasksSvc: TasksService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute, 
+    private router: Router, private groupsSvc: GroupsService) {
     this.model = {
       newTaskForm: this.fb.group({
         name: ['', Validators.required],
@@ -25,7 +27,8 @@ export class TodoManagementComponent implements OnInit {
       }),
       addMode: false,
       viewMode: false,
-      editMode: false
+      editMode: false,
+      groups: []
     }
   }
 
@@ -41,6 +44,11 @@ export class TodoManagementComponent implements OnInit {
     } else {
       this.model.addMode = true;
     }
+
+    // Get all groups
+    this.groupsSvc.getAll().subscribe(groups => {
+      this.model.groups = groups;
+    })
   }
 
   get taskId() {
@@ -107,6 +115,7 @@ export class TodoManagementComponent implements OnInit {
     this.tasksSvc.update({id: this.taskId, ...this.model.newTaskForm.value}).subscribe(res => {
       if (res) {
         this.snackBar.open("Task updated successfully 😀", "close", { duration: 2000 });
+        this.router.navigate([`app/list/view/${this.taskId}`]);
       } else {
         this.snackBar.open("Task not updated successfully 😨", "close", { duration: 2000 });
       }

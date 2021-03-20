@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 
 export enum Priority {
     Low = 1,
@@ -25,4 +26,9 @@ export interface ITodoList {
     tasks : ITask[];
     groups: IGroup[];
     selectedTasks: number[];
+    filter: {
+        title: string;
+        date: any;
+        groupName: string;
+    }
 }
