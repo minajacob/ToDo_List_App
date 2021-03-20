@@ -1,6 +1,6 @@
 <div class="row mt-3">
     <h2>New Task 🆕</h2>
-    <form class="col-8" (ngSubmit)="addNewTask()" #form="ngForm" [formGroup]="newTaskForm" >
+    <form class="col-8" (ngSubmit)="addNewTask()" #form="ngForm" [formGroup]="model.newTaskForm" >
         <div class="border border-1 p-4">
             <div class="col-6 mb-3">
                 <mat-form-field class="w-100">
@@ -18,9 +18,7 @@
                     <label>Priority</label>
                 </div>
                 <mat-radio-group aria-label="Select an option" formControlName="priority">
-                    <mat-radio-button class="col-2" value="1">Low</mat-radio-button>
-                    <mat-radio-button class="col-2" value="2">Normal</mat-radio-button>
-                    <mat-radio-button class="col-2" value="3">High</mat-radio-button>
+                    <mat-radio-button class="col-2" *ngFor="let priority of priorities; trackBy : trackByPriority" [value]="priority.key">{{ priority.value }}</mat-radio-button>
                 </mat-radio-group>
                 <div class="error-msg mt-2">
                     <span *ngIf="form?.submitted && priorityCtrl?.hasError('required')">
@@ -33,7 +31,7 @@
             <div class="col-3 mb-3">
                 <mat-form-field class="w-100">
                     <mat-label>Delivery Date</mat-label>
-                    <input matInput [matDatepicker]="picker"  formControlName="dueDate">
+                    <input matInput [matDatepicker]="picker" formControlName="dueDate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker ></mat-datepicker>
                     <mat-error *ngIf="dueDateCtrl?.hasError('required')">
@@ -58,7 +56,9 @@
     
             <div class="d-md-flex justify-content-md-end">
                 <div class="d-grid col-2">
-                    <button type="submit" class="btn btn-primary" >Add</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="model.addMode">Add</button>
+                    <button type="button" class="btn btn-primary" (click)="editTask()" *ngIf="model.viewMode">Edit</button>
+                    <button type="button" class="btn btn-primary" (click)="updateTask()" *ngIf="model.editMode">Update</button>
                 </div>
             </div>  
         </div>

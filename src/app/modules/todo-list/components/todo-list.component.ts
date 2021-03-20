@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GroupsService } from '../../core/groups.service';
 import { TasksService } from '../../core/tasks.service';
 import { ITask, ITodoList } from '../../core/todo.model';
@@ -12,7 +13,7 @@ export class TodoListComponent implements OnInit {
 
   model: ITodoList = {} as ITodoList;
 
-  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService) { }
+  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService, private router: Router) { }
 
   ngOnInit(): void {
     this.model = {
@@ -42,8 +43,8 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  taskRowClick(){
-
+  taskRowClick(task: ITask){
+    this.router.navigate([`app/list/view/${task.id}`]);
   }
 
   getGroupName(groupId: number){

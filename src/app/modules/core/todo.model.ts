@@ -1,8 +1,8 @@
 
 export enum Priority {
-    Low,
-    Normal,
-    High
+    Low = 1,
+    Normal = 2,
+    High = 3
 }
 
 export interface IGroup {

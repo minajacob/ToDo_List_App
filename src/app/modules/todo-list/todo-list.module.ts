@@ -10,8 +10,8 @@ import { TodoManagementComponent } from '../todo-management/todo-management.comp
 
 const routes: Routes = [
   { path: 'all', component: TodoListComponent },
-  { path: 'view/:taskId', component: TodoManagementComponent },
-  { path: 'edit/:taskId', component: TodoManagementComponent }
+  { path: 'view/:taskId', component: TodoManagementComponent, data: { pageType: "view" } },
+  { path: 'edit/:taskId', component: TodoManagementComponent, data: { pageType: "edit" } }
 ]
 
 

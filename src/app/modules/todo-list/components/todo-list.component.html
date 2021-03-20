@@ -52,8 +52,8 @@
             </div>
         </h2>
 
-        <mat-list (click)="taskRowClick()">
-            <a mat-list-item matRipple href="javascript:void(0)" class="text-decoration-none mb-2 task" *ngFor="let task of group.list">
+        <mat-list>
+            <a mat-list-item matRipple href="javascript:void(0)"  (click)="taskRowClick(task)" class="text-decoration-none mb-2 task" *ngFor="let task of group.list">
                 <mat-checkbox (click)="taskClick($event, task)"> {{ task.name }}</mat-checkbox>
                 <div class="ms-auto d-flex">
                     <button type="button" class="me-2 rounded-circle action btn btn-danger btn-sm" (click)="deleteTask($event, task)" >
