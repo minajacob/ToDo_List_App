@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } 
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { GroupsService } from '../../core/groups.service';
@@ -21,7 +21,7 @@ export class TodoListComponent implements OnInit {
 
   model: ITodoList = {} as ITodoList;
 
-  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService, private router: Router, public dialog: MatDialog) {  }
+  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService, private router: Router, public dialog: MatDialog, private activeRoute: ActivatedRoute) {  }
 
   ngOnInit(): void {
     this.model = {
@@ -32,7 +32,8 @@ export class TodoListComponent implements OnInit {
         date: null,
         groupName: '',
         title: ''
-      }
+      },
+      isToday: false
     }
 
     this.tasksSvc.get().subscribe(tasks => {
@@ -42,6 +43,16 @@ export class TodoListComponent implements OnInit {
     this.groupsSvc.getAll().subscribe(groups => {
       this.model.groups = groups;
     });
+
+    this.activeRoute.queryParams.subscribe((params) => {
+      this.model.filter.groupName = this.groupsSvc.getById(params['gId'])?.name || '';
+    })
+
+    if (this.activeRoute.snapshot.data.isToday) {
+      const today = new Date();
+      this.model.filter.date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+      this.model.isToday = true;
+    }
   }
 
   filteredGroups(value: string){

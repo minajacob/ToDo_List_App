@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   { path: 'all', component: TodoListComponent },
+  { path: 'today', component: TodoListComponent, data: { isToday: true } },
   { path: 'view/:taskId', component: TodoManagementComponent, data: { pageType: "view" } },
   { path: 'edit/:taskId', component: TodoManagementComponent, data: { pageType: "edit" } }
 ]

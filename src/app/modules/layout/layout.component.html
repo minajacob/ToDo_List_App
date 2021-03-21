@@ -25,10 +25,27 @@
             <mat-list-item class="menu-item" routerLinkActive="active" routerLink="new" matRipple role="listitem">
                 <mat-icon mat-list-icon>add_circle_outline</mat-icon> New Task
             </mat-list-item>
-            <mat-list-item class="menu-item" routerLinkActive="active"  routerLink="list/all" matRipple role="listitem">
-                <mat-icon mat-list-icon>list</mat-icon> Task List
+            <mat-list-item class="menu-item" routerLinkActive="active" routerLink="list/all" matRipple role="listitem">
+                <mat-icon mat-list-icon>list</mat-icon> All
             </mat-list-item>
-          </mat-list>
+            <mat-list-item class="menu-item" routerLinkActive="active" routerLink="list/today" matRipple role="listitem">
+                <mat-icon mat-list-icon>today</mat-icon> Today
+            </mat-list-item>
+        </mat-list>
+        <mat-accordion class="group-accordion">
+            <mat-expansion-panel class="shadow-none">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Groups
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                    <mat-list-item class="menu-item" routerLink="list/all" [queryParams]="{gId: group.id}" matRipple role="listitem" *ngFor="let group of groups | async">
+                        {{ group.name }}
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
     </mat-sidenav>
 
     <mat-sidenav-content>

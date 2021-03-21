@@ -1,11 +1,11 @@
 <div class="row mt-3">
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mb-2">
         <button mat-flat-button routerLink="/app/new" type="button" color="accent">
             <mat-icon mat-list-icon>add_circle_outline</mat-icon> New Task 
         </button>
     </div>
 
-    <div>
+    <div *ngIf="!model.isToday">
         <label class="mb-2">Filter By</label>
         <div class="row row-cols-auto">
             <div class="col">

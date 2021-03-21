@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const components = [
   MatSidenavModule,
@@ -32,7 +33,8 @@ const components = [
   MatRadioModule,
   MatSnackBarModule,
   MatAutocompleteModule,
-  MatDialogModule
+  MatDialogModule,
+  MatExpansionModule
 ]
 
 @NgModule({

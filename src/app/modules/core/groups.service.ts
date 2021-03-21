@@ -22,4 +22,8 @@ export class GroupsService {
   getAll() {
     return of(this.groups);
   }
+
+  getById(gId: number) {
+    return this.groups.find(g => g.id == gId);
+  }
 }

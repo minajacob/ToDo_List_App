@@ -30,5 +30,6 @@ export interface ITodoList {
         title: string;
         date: any;
         groupName: string;
-    }
+    },
+    isToday: boolean;
 }

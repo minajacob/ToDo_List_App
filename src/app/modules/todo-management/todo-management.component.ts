@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupsService } from '../core/groups.service';
@@ -63,9 +63,10 @@ export class TodoManagementComponent implements OnInit {
     })
   }
 
-  addNewTask() {
+  addNewTask(form: FormGroupDirective) {
     if (this.model.newTaskForm.valid) {
       this.tasksSvc.add(this.model.newTaskForm.value).subscribe(res => {
+        form.resetForm();
         this.snackBar.open("Task added successfully 😀", "close", { duration: 2000 });
       })
     }

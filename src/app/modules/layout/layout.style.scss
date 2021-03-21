@@ -30,3 +30,15 @@
         background: #212121;
     }
 }
+
+.group-accordion { 
+    ::ng-deep{
+        .mat-expansion-panel-header,
+        .mat-expansion-panel-header.mat-expanded {
+            height: 56px;
+        }
+        .mat-expansion-panel-body {
+            padding: 0;
+        }
+    }
+}
