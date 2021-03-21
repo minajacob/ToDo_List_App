@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -6,6 +8,7 @@ import { map, startWith } from 'rxjs/operators';
 import { GroupsService } from '../../core/groups.service';
 import { TasksService } from '../../core/tasks.service';
 import { IGroup, ITask, ITodoList } from '../../core/todo.model';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,9 +17,11 @@ import { IGroup, ITask, ITodoList } from '../../core/todo.model';
 })
 export class TodoListComponent implements OnInit {
 
+  @ViewChildren(MatCheckbox) matCheckboxs: QueryList<MatCheckbox> = new QueryList();
+
   model: ITodoList = {} as ITodoList;
 
-  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService, private router: Router) { }
+  constructor(private tasksSvc: TasksService, private groupsSvc: GroupsService, private router: Router, public dialog: MatDialog) {  }
 
   ngOnInit(): void {
     this.model = {
@@ -70,9 +75,13 @@ export class TodoListComponent implements OnInit {
   deleteTask(e: Event, task: ITask) {
     // Stop Event bubbling  
     e.stopPropagation();
-    this.tasksSvc.update({ ...task, deleted: true }).subscribe(res => {
-      this.model.tasks = this.model.tasks.filter(t => t.id !== task.id);
-      this.model.selectedTasks = [];
+    this.confirmDialog('Are you sure to delete this task').afterClosed().subscribe(res => {
+      if (res) {
+        this.tasksSvc.update({ ...task, deleted: true }).subscribe(res => {
+          this.model.tasks = this.model.tasks.filter(t => t.id !== task.id);
+          this.model.selectedTasks = [];
+        })
+      }
     })
   }
 
@@ -110,6 +119,37 @@ export class TodoListComponent implements OnInit {
 
   trackByTasksFn(group: any){
     return group;
+  }
+
+  deleteTasks() {
+    this.confirmDialog("Are you sure to delete these tasks").afterClosed().subscribe(res => {
+      if (res) {
+        this.tasksSvc.removeTasks(this.model.selectedTasks).subscribe(tasks => {
+          this.model.tasks = tasks;
+          this.model.selectedTasks = [];
+        });
+      }
+    })
+  }
+
+  doneTasks(){
+    this.tasksSvc.doneTasks(this.model.selectedTasks).subscribe(tasks => {
+      this.model.tasks = tasks;
+      this.model.selectedTasks = [];
+      this.matCheckboxs.forEach(checkbox => {
+        if (checkbox.checked) {
+          checkbox.toggle()
+        }        
+      })
+    });
+  }
+
+  confirmDialog(msg: string){
+    return this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: msg
+      }
+    });
   }
 
 }

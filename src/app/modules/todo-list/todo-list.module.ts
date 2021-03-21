@@ -7,6 +7,7 @@ import { CoreModule } from '../core/core.module';
 import { TodoManagementModule } from '../todo-management/todo-management.module';
 import { TodoManagementComponent } from '../todo-management/todo-management.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     ControlsModule,
     CoreModule,
     FormsModule,
-    TodoManagementModule
+    TodoManagementModule,
+    SharedModule
   ],
   exports: [RouterModule]
 })

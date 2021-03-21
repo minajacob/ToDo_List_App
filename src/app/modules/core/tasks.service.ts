@@ -45,6 +45,7 @@ export class TasksService {
 
     removeTasks(tasksIds: number[]) {
         this.tasks = this.tasks.filter(t => !tasksIds.includes(t.id));
+        return of(this.tasks);
     }
 
     update(task: ITask) {
@@ -54,5 +55,14 @@ export class TasksService {
             return of(true);
         }
         return of(false);
+    }
+
+    doneTasks(tasksIds: number[]) {
+        this.tasks.forEach(t => {
+            if (tasksIds.includes(t.id)) {
+                t.done = true;
+            }
+        })
+        return of(this.tasks);
     }
 }
